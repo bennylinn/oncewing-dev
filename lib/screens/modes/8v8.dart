@@ -828,9 +828,6 @@ class _PlayerListState extends State<Eights> {
                                                 print('checkuh here');
                                                 print(getMapFromList(
                                                     queue.toList()));
-                                                // print(Map.fromIterable(
-                                                //     queueFinished));
-                                                // print(Map.fromIterable(inGameUids));
 
                                                 GameDatabaseService()
                                                     .updateGameData(
