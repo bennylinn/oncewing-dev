@@ -85,11 +85,11 @@ class _HomeState extends State<Home> {
           margin: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              gradient: isActiveButtonColor("leaderboards")),
+              gradient: isActiveButtonColor("maps")),
           child: IconButton(
-            icon: Icon(Icons.list, color: Colors.black),
+            icon: Icon(Icons.map, color: Colors.black),
             onPressed: () {
-              changeView("leaderboards");
+              changeView("maps");
             },
           ),
         ),
