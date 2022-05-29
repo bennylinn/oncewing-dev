@@ -41,7 +41,7 @@ class _GroupInfoState extends State<GroupInfo> {
           child: Container(
             color: Color(0xFF737373),
             child: Scaffold(
-              resizeToAvoidBottomPadding: false,
+              resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 backgroundColor: Color(0xff050E14),
                 centerTitle: true,
@@ -128,7 +128,7 @@ class _GroupInfoState extends State<GroupInfo> {
     return Container(
       color: Color(0xFF737373),
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Color(0xff021420),
           centerTitle: true,

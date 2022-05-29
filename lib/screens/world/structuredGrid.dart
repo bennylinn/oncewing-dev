@@ -24,9 +24,9 @@ class _StructuredGridCellWorldState extends State<StructuredGridCellWorld> {
   initState() {
     super.initState();
 
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection('Groups')
-        .document(widget.groupId)
+        .doc(widget.groupId)
         .get()
         .then((value) {
       registration = value['registration'];
@@ -79,15 +79,15 @@ class _StructuredGridCellWorldState extends State<StructuredGridCellWorld> {
                           ))
                         ])
                   : Center(
-                      child: FlatButton(
+                      child: TextButton(
                         onPressed: () {
                           List ent = registration['entries'];
                           if (!ent.contains(widget.uid)) {
                             ent.add(widget.uid);
-                            Firestore.instance
+                            FirebaseFirestore.instance
                                 .collection('Groups')
-                                .document(widget.groupId)
-                                .updateData({
+                                .doc(widget.groupId)
+                                .update({
                               'registration': {
                                 'entries': ent,
                                 'numCourts': registration['numCourts'],

@@ -37,50 +37,16 @@ class _HomePageState extends State<HomePage>
   }
 
   final AuthService _auth = AuthService();
-
-  // showUpgrade(BuildContext parentContext, String transition) {
-  //   showGeneralDialog(
-  //     barrierDismissible: false,
-  //     barrierColor: Colors.black,
-  //     transitionDuration: Duration(milliseconds: 300),
-  //     context: context,
-  //     pageBuilder: (BuildContext context, Animation animation, Animation secondAnimation) {
-  //     // player.play("silverToGold.mp3");
-  //     Future.delayed(Duration(seconds: 8), () {
-
-  //       Navigator.of(context).pop(true);
-  //     });
-  //     return Container(
-  //       height: MediaQuery.of(context).size.height,
-  //       width: MediaQuery.of(context).size.width,
-  //       decoration: BoxDecoration(
-  //         image: DecorationImage(
-  //           image: AssetImage('assets/$transition.gif'),
-  //           fit: BoxFit.fitWidth
-  //           )
-  //         ),
-  //       child: Container(
-  //         height: MediaQuery.of(context).size.height,
-  //         width: MediaQuery.of(context).size.width,
-  //         child: FlatButton(
-  //           child: Container(height: 0,),
-  //           onPressed: () {Navigator.pop(context);},
-  //         ),
-  //       )
-  //       );
-  //     }
-  //   );
-  // }
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   @override
-  initState() {
-    super.initState();
-    if (Platform.isIOS) {
-      _firebaseMessaging
-          .requestNotificationPermissions(IosNotificationSettings());
-    }
-  }
+  // initState() {
+  //   super.initState();
+  //   if (Platform.isIOS) {
+  //     _firebaseMessaging
+  //         .requestNotificationPermissions(IosNotificationSettings());
+  //   }
+  // }
 
   void pageChanged(int index) {
     setState(() {
@@ -153,7 +119,7 @@ class _HomePageState extends State<HomePage>
             top: true,
             maintainBottomViewPadding: true,
             child: Scaffold(
-              resizeToAvoidBottomPadding: false,
+              resizeToAvoidBottomInset: false,
               drawer: Drawer(
                   elevation: 0.0,
                   child: Container(
@@ -196,12 +162,9 @@ class _HomePageState extends State<HomePage>
                         Padding(
                           padding:
                               const EdgeInsets.only(left: 50.0, right: 50.0),
-                          child: new RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: BorderSide(color: Colors.red)),
-                              color: Colors.red,
-                              textColor: Colors.white,
+                          child: new ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  textStyle: const TextStyle(fontSize: 20)),
                               child: Text(
                                 'Sign Out',
                               ),
@@ -236,11 +199,7 @@ class _HomePageState extends State<HomePage>
                         color: Color(0xffC49859),
                       ),
                       backgroundColor: Colors.black,
-                      title: Center(
-                          child: Text(
-                        destination.title,
-                        style: TextStyle(color: Color(0xffC49859)),
-                      )));
+                      label: destination.title);
                 }).toList(),
               ),
             ),

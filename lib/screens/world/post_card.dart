@@ -1,6 +1,5 @@
 import 'package:OnceWing/my_flutter_app_icons.dart';
 import 'package:OnceWing/shared/video_player.dart';
-import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:OnceWing/services/mediacache.dart';
@@ -104,36 +103,36 @@ class _PostCardState extends State<PostCard> {
                       color: Colors.black,
                     ),
                     width: MediaQuery.of(context).size.width,
-                    child: (widget.isImage)
-                        ? (imagesLoaded)
-                            ? Carousel(
-                                dotSize: 3,
-                                boxFit: BoxFit.fitHeight,
-                                images: _listOfImages,
-                                autoplay: false,
-                                indicatorBgPadding: 5.0,
-                                dotPosition: DotPosition.bottomCenter,
-                                animationCurve: Curves.fastOutSlowIn,
-                                animationDuration: Duration(milliseconds: 2000))
-                            : Container(
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              )
-                        : Stack(
-                            alignment: FractionalOffset.center,
-                            children: <Widget>[
-                                Container(
-                                  color: Colors.black,
-                                ),
-                                (vp == null)
-                                    ? Container(
-                                        child: Center(
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                      )
-                                    : vp,
-                              ]),
+                    // child: (widget.isImage)
+                    //     ? (imagesLoaded)
+                    //         ? Carousel(
+                    //             dotSize: 3,
+                    //             boxFit: BoxFit.fitHeight,
+                    //             images: _listOfImages,
+                    //             autoplay: false,
+                    //             indicatorBgPadding: 5.0,
+                    //             dotPosition: DotPosition.bottomCenter,
+                    //             animationCurve: Curves.fastOutSlowIn,
+                    //             animationDuration: Duration(milliseconds: 2000))
+                    //         : Container(
+                    //             child: Center(
+                    //               child: CircularProgressIndicator(),
+                    //             ),
+                    //           )
+                    //     : Stack(
+                    //         alignment: FractionalOffset.center,
+                    //         children: <Widget>[
+                    //             Container(
+                    //               color: Colors.black,
+                    //             ),
+                    //             (vp == null)
+                    //                 ? Container(
+                    //                     child: Center(
+                    //                       child: CircularProgressIndicator(),
+                    //                     ),
+                    //                   )
+                    //                 : vp,
+                    //           ]),
                   ),
                   Container(
                     height: 2,

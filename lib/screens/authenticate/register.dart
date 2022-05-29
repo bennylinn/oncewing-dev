@@ -50,7 +50,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   actions: <Widget>[
-                    FlatButton.icon(
+                    TextButton.icon(
                       icon: Icon(
                         Icons.person,
                         color: Colors.blue[300],
@@ -144,9 +144,7 @@ class _RegisterState extends State<Register> {
                                   onChanged: (val) {
                                     setState(() => password = val);
                                   }),
-                              RaisedButton(
-                                  elevation: 0.0,
-                                  color: Colors.transparent,
+                              ElevatedButton(
                                   child: Text(
                                     'REGISTER',
                                     style: TextStyle(

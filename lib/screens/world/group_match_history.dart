@@ -58,7 +58,7 @@ class _GroupMatchHistoryState extends State<GroupMatchHistory> {
                           borderOnForeground: true,
                           child: Container(
                               child: ExpansionTile(
-                                  trailing: FlatButton.icon(
+                                  trailing: TextButton.icon(
                                       onPressed: () {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(

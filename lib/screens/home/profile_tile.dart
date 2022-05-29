@@ -79,9 +79,7 @@ class _ProfileTile extends State<ProfileTile> {
       return Container(
         width: 40,
         height: 40,
-        child: RaisedButton(
-          elevation: 0,
-          color: Colors.transparent,
+        child: ElevatedButton(
           onPressed: () {
             widget.callback(widget.profile);
             setState(() {

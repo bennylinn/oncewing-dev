@@ -50,7 +50,7 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                   actions: <Widget>[
-                    FlatButton.icon(
+                    TextButton.icon(
                       icon: Icon(
                         Icons.person,
                         color: Colors.blue[300],
@@ -140,9 +140,7 @@ class _SignInState extends State<SignIn> {
                                 onChanged: (val) {
                                   setState(() => password = val);
                                 }),
-                            RaisedButton(
-                                elevation: 0.0,
-                                color: Colors.transparent,
+                            ElevatedButton(
                                 child: Text(
                                   'LOGIN',
                                   style: TextStyle(

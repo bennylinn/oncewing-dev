@@ -35,7 +35,7 @@ class _MatchHistory extends State<MatchHistory> {
             child: Container(
               color: Color(0xFF737373),
               child: Scaffold(
-                resizeToAvoidBottomPadding: false,
+                resizeToAvoidBottomInset: false,
                 appBar: AppBar(
                   backgroundColor: Colors.black,
                   centerTitle: true,
@@ -63,18 +63,15 @@ class _MatchHistory extends State<MatchHistory> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      resizeToAvoidBottomPadding: true,
       appBar: AppBar(
           actions: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: RaisedButton.icon(
-                  color: Colors.transparent,
+              child: ElevatedButton.icon(
                   icon: Icon(
                     Icons.arrow_drop_up,
                     color: Colors.blue[100],
                   ),
-                  elevation: 0,
                   onPressed: () => _showPlayerPanel(),
                   label: Text(
                     'Scoreboard',

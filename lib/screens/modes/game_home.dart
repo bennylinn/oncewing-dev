@@ -97,7 +97,7 @@ class _GameHome extends State<GameHome> {
             child: Container(
               color: Color(0xFF737373),
               child: Scaffold(
-                resizeToAvoidBottomPadding: false,
+                resizeToAvoidBottomInset: false,
                 appBar: AppBar(
                   backgroundColor: Color(0xff050E14),
                   centerTitle: true,
@@ -126,9 +126,7 @@ class _GameHome extends State<GameHome> {
 
     Widget addPlayaButton(bool modeChosen) {
       if (modeChosen) {
-        return RaisedButton(
-          color: Colors.transparent,
-          elevation: 0.0,
+        return ElevatedButton(
           child: CircleAvatar(
             radius: 20,
             backgroundColor: Color(0xffC49859),
@@ -145,9 +143,7 @@ class _GameHome extends State<GameHome> {
           },
         );
       } else {
-        return RaisedButton(
-          color: Colors.transparent,
-          elevation: 0.0,
+        return ElevatedButton(
           child: CircleAvatar(
             radius: 20,
             backgroundColor: Colors.grey,
@@ -332,8 +328,7 @@ class _GameHome extends State<GameHome> {
                 borderRadius: BorderRadius.circular(5),
                 color: Colors.blue.withOpacity(0.2),
               ),
-              child: FlatButton(
-                color: Colors.transparent,
+              child: TextButton(
                 child:
                     Text('Confirm', style: TextStyle(color: Color(0xffC49859))),
                 onPressed: () {
@@ -677,7 +672,7 @@ class _GameHome extends State<GameHome> {
                       ListView(children: [
                         AppBar(
                           backgroundColor: Colors.transparent,
-                          leading: FlatButton(
+                          leading: TextButton(
                             onPressed: () {
                               _controller.animateTo(-1,
                                   duration: Duration(milliseconds: 500),
@@ -735,9 +730,7 @@ class _GameHome extends State<GameHome> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               addPlayaButton(_modeChosen),
-                              RaisedButton(
-                                color: Colors.transparent,
-                                elevation: 0.0,
+                              ElevatedButton(
                                 child: CircleAvatar(
                                   radius: 20,
                                   backgroundColor: Color(0xffC49859),
@@ -765,7 +758,7 @@ class _GameHome extends State<GameHome> {
                                             callback: setQrUid,
                                           )),
                                           actions: [
-                                            FlatButton(
+                                            TextButton(
                                               child: Text("Confirm"),
                                               onPressed: () {
                                                 Profile p;
@@ -781,7 +774,7 @@ class _GameHome extends State<GameHome> {
                                                 Navigator.pop(context);
                                               },
                                             ),
-                                            FlatButton(
+                                            TextButton(
                                               child: Text("Cancel"),
                                               onPressed: () {
                                                 Navigator.pop(context);
@@ -792,7 +785,7 @@ class _GameHome extends State<GameHome> {
                                       });
                                 },
                               ),
-                              FlatButton(
+                              TextButton(
                                 child: Text('Clear Players',
                                     style: TextStyle(
                                         color: Colors.red[500].withOpacity(0.6),
@@ -810,8 +803,7 @@ class _GameHome extends State<GameHome> {
                           height: 10,
                         ),
                         Center(
-                            child: RaisedButton(
-                                color: Colors.transparent,
+                            child: ElevatedButton(
                                 onPressed: () {},
                                 child: Text('Import Registered Game',
                                     style: TextStyle(color: Colors.blue[100]))))
@@ -916,7 +908,7 @@ class _EightsPage extends State<EightsPage> {
             child: Container(
               color: Color(0xFF737373),
               child: Scaffold(
-                resizeToAvoidBottomPadding: false,
+                resizeToAvoidBottomInset: false,
                 appBar: AppBar(
                   backgroundColor: Color(0xff050E14),
                   centerTitle: true,
@@ -944,18 +936,15 @@ class _EightsPage extends State<EightsPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      resizeToAvoidBottomPadding: true,
       appBar: AppBar(
           actions: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: RaisedButton.icon(
-                  color: Colors.transparent,
+              child: ElevatedButton.icon(
                   icon: Icon(
                     Icons.arrow_drop_up,
                     color: Colors.blue[100],
                   ),
-                  elevation: 0,
                   onPressed: () => _showPlayerPanel(),
                   label: Text(
                     'Scoreboard',

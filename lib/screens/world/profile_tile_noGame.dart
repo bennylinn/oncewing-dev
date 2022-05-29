@@ -26,9 +26,7 @@ class _ProfileTile extends State<ProfileTileNoGame> {
     if (widget.add) {
       return Container(
         width: 80,
-        child: RaisedButton(
-          elevation: 0,
-          color: Colors.transparent,
+        child: ElevatedButton(
           onPressed: () {
             widget.callback(widget.profile);
             setState(() {

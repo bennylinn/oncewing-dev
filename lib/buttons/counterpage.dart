@@ -86,9 +86,9 @@ class _NumberInputWithIncrementDecrementState extends State<CountButton> {
                                   decimal: false,
                                   signed: true,
                                 ),
-                                inputFormatters: <TextInputFormatter>[
-                                  WhitelistingTextInputFormatter.digitsOnly
-                                ],
+                                // inputFormatters: <TextInputFormatter>[
+                                //   WhitelistingTextInputFormatter.digitsOnly
+                                // ],
                               ),
                             ),
                             Container(
@@ -183,9 +183,9 @@ class _NumberInputWithIncrementDecrementState extends State<CountButton> {
                                     decimal: false,
                                     signed: true,
                                   ),
-                                  inputFormatters: <TextInputFormatter>[
-                                    WhitelistingTextInputFormatter.digitsOnly
-                                  ],
+                                  // inputFormatters: <TextInputFormatter>[
+                                  //   WhitelistingTextInputFormatter.digitsOnly
+                                  // ],
                                 ),
                               ),
                             ),
@@ -274,8 +274,7 @@ class _NumberInputWithIncrementDecrementState extends State<CountButton> {
                     children: [
                       Container(
                         height: widget.height / 2,
-                        child: FlatButton(
-                          splashColor: Colors.white,
+                        child: ElevatedButton(
                           onPressed: () {
                             widget.callback([
                               int.parse(_controller1.text),
@@ -295,8 +294,7 @@ class _NumberInputWithIncrementDecrementState extends State<CountButton> {
                       ),
                       Container(
                         height: widget.height / 2,
-                        child: FlatButton(
-                          splashColor: Colors.white,
+                        child: ElevatedButton(
                           onPressed: () {
                             setState(() {
                               saved = false;

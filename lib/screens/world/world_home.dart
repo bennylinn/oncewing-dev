@@ -291,8 +291,7 @@ class _EventsState extends State<Events> {
                   borderRadius: BorderRadius.circular(5),
                   color: Colors.blue.withOpacity(0.4),
                 ),
-                child: FlatButton(
-                  color: Colors.transparent,
+                child: TextButton(
                   child:
                       Text('Join', style: TextStyle(color: Color(0xffC49859))),
                   onPressed: () {
@@ -300,10 +299,10 @@ class _EventsState extends State<Events> {
 
                     if (!widget.group.uids.contains(user.uid)) {
                       uids.add(user.uid);
-                      Firestore.instance
+                      FirebaseFirestore.instance
                           .collection('Groups')
-                          .document(widget.group.groupId)
-                          .updateData({'uids': uids});
+                          .doc(widget.group.groupId)
+                          .update({'uids': uids});
                     }
                   },
                 ),
@@ -315,8 +314,7 @@ class _EventsState extends State<Events> {
                   borderRadius: BorderRadius.circular(5),
                   color: Colors.blue.withOpacity(0.2),
                 ),
-                child: FlatButton(
-                  color: Colors.transparent,
+                child: TextButton(
                   child:
                       Text('View', style: TextStyle(color: Color(0xffC49859))),
                   onPressed: () {

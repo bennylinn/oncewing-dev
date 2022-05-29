@@ -5,7 +5,6 @@ import 'package:OnceWing/models/profile.dart';
 import 'package:OnceWing/models/user.dart';
 import 'package:OnceWing/services/database.dart';
 import 'package:OnceWing/services/game_database.dart';
-import 'package:OnceWing/shared/alert.dart';
 import 'package:OnceWing/shared/animated_button.dart';
 import 'package:OnceWing/shared/game_order.dart';
 import 'package:OnceWing/shared/generate_court.dart';
@@ -252,20 +251,17 @@ class _PlayerListState extends State<Eights> {
 
       queueFinished = Queue();
 
-      Firestore.instance
-          .collection('games')
-          .document(widget.gameid)
-          .updateData({
+      FirebaseFirestore.instance.collection('games').doc(widget.gameid).update({
         'upcomingGames': getMapFromList(queue.toList()),
         'finishedGames': getMapFromList(queueFinished.toList()),
         'inGame': getMapFromList(inGameUids),
       });
 
       widget.profiles.forEach((profile) {
-        Firestore.instance
+        FirebaseFirestore.instance
             .collection('profiles')
-            .document(profile.uid)
-            .updateData({'status': widget.gameid});
+            .doc(profile.uid)
+            .update({'status': widget.gameid});
       });
     } else {}
   }
@@ -484,10 +480,10 @@ class _PlayerListState extends State<Eights> {
       print(yuhMap);
 
       yuhMap.forEach((uid, data) async {
-        await Firestore.instance
+        await FirebaseFirestore.instance
             .collection('profiles')
-            .document(uid)
-            .updateData({
+            .doc(uid)
+            .update({
           'rank': yuhMap[uid]['rank'],
           'gamesPlayed': yuhMap[uid]['gamesPlayed'],
           'wins': yuhMap[uid]['wins'],
@@ -720,11 +716,10 @@ class _PlayerListState extends State<Eights> {
                                           print('updating to firestore...');
 
                                           widget.profiles.forEach((profile) {
-                                            Firestore.instance
+                                            FirebaseFirestore.instance
                                                 .collection('profiles')
-                                                .document(profile.uid)
-                                                .updateData(
-                                                    {'status': 'Online'});
+                                                .doc(profile.uid)
+                                                .update({'status': 'Online'});
                                           });
 
                                           setState(() {
@@ -871,7 +866,7 @@ class _PlayerListState extends State<Eights> {
                   appBar: AppBar(
                     elevation: 0,
                     actions: [
-                      FlatButton(
+                      TextButton(
                         child: (viewUpcomingToggle)
                             ? Icon(
                                 Icons.check_circle_outline,
@@ -988,7 +983,7 @@ class _PlayerListState extends State<Eights> {
                                                     0.6,
                                               )).vertical(context),
                                           actions: [
-                                            FlatButton(
+                                            TextButton(
                                               child: Text('Confirm',
                                                   style: TextStyle(
                                                       color: Colors.blue[100])),
@@ -997,10 +992,10 @@ class _PlayerListState extends State<Eights> {
                                                         .truncate() +
                                                     1;
                                                 for (var i = 0; i < 4; i++) {
-                                                  Firestore.instance
+                                                  FirebaseFirestore.instance
                                                       .collection('profiles')
-                                                      .document(profs[i].uid)
-                                                      .updateData({
+                                                      .doc(profs[i].uid)
+                                                      .update({
                                                     'eights': updateEights(
                                                         profs[i].eights,
                                                         game,
@@ -1019,10 +1014,10 @@ class _PlayerListState extends State<Eights> {
                                                   parsedAllGames[
                                                       key.toString()] = value;
                                                 });
-                                                Firestore.instance
+                                                FirebaseFirestore.instance
                                                     .collection('games')
-                                                    .document(widget.gameid)
-                                                    .updateData({
+                                                    .doc(widget.gameid)
+                                                    .update({
                                                   'scores': parsedAllGames
                                                 });
                                                 Navigator.pop(context);

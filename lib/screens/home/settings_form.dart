@@ -109,8 +109,7 @@ class _SettingsFormState extends State<SettingsForm> {
                     onChanged: (val) => setState(() => _currentClan = val),
                   ),
                   SizedBox(height: 10.0),
-                  RaisedButton(
-                      color: Colors.pink[400],
+                  ElevatedButton(
                       child: Text(
                         'Update',
                         style: TextStyle(color: Colors.white),

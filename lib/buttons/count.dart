@@ -45,11 +45,11 @@ class Count extends StatelessWidget {
                 decimal: false,
                 signed: true,
               ),
-              inputFormatters: <TextInputFormatter>[
-                WhitelistingTextInputFormatter.digitsOnly
-              ],
+              // inputFormatters: <TextInputFormatter>[
+              //   WhitelistingTextInputFormatter.digitsOnly
+              // ],
             ),
-          ),         
+          ),
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {

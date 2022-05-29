@@ -102,7 +102,7 @@ class _PlayerEventsState extends State<PlayerEvents> {
                                 indent: 10,
                                 endIndent: 10,
                               ),
-                              FlatButton.icon(
+                              TextButton.icon(
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(

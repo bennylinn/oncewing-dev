@@ -83,8 +83,7 @@ class _AddGroupState extends State<AddGroup> {
                     onChanged: (val) => setState(() => _currentType = val),
                   ),
                   SizedBox(height: 10.0),
-                  RaisedButton(
-                      color: Colors.pink[400],
+                  ElevatedButton(
                       child: Text(
                         'Create',
                         style: TextStyle(color: Colors.white),

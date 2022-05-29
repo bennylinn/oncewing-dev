@@ -172,16 +172,15 @@ class _RegisterRoundState extends State<RegisterRound> {
               borderRadius: BorderRadius.circular(5),
               color: Colors.blue[900],
             ),
-            child: FlatButton.icon(
-              color: Colors.transparent,
+            child: TextButton.icon(
               label:
                   Text('Confirm', style: TextStyle(color: Color(0xffC49859))),
               icon: Icon(Icons.check_box, color: Color(0xffC49859)),
               onPressed: () {
-                Firestore.instance
+                FirebaseFirestore.instance
                     .collection('Groups')
-                    .document(widget.groupId)
-                    .updateData({
+                    .doc(widget.groupId)
+                    .update({
                   'registration': {
                     'numPlayer': _numberOfPlayers,
                     'numRounds': _numberOfRounds,

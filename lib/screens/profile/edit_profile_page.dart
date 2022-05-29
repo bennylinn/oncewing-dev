@@ -29,7 +29,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   Future getImage() async {
     final pickedFile =
-        await picker.getImage(source: ImageSource.gallery, imageQuality: 75);
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 75);
 
     setState(() {
       _image = File(pickedFile.path);
@@ -39,10 +39,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         .uploadProfileImage(imageToUpload: _image)
         .then((value) {
       _imageUrl = value.imageUrl;
-      Firestore.instance
-          .collection('profiles')
-          .document(widget.uid)
-          .updateData({
+      FirebaseFirestore.instance.collection('profiles').doc(widget.uid).update({
         "photoUrl": value,
       });
     });
@@ -90,14 +87,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
           ),
           actions: [
-            FlatButton(
+            TextButton(
               child: Text('Gallery'),
               onPressed: () {
                 getImage();
                 Navigator.pop(context);
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text('Take Picture'),
               onPressed: () {
                 getCamera();
@@ -111,7 +108,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   applyChanges() {
-    Firestore.instance.collection('profiles').document(widget.uid).updateData({
+    FirebaseFirestore.instance.collection('profiles').doc(widget.uid).update({
       "name": nameController.text,
       "bio": bioController.text,
     });
@@ -141,9 +138,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Firestore.instance
+        future: FirebaseFirestore.instance
             .collection('profiles')
-            .document(widget.uid)
+            .doc(widget.uid)
             .get(),
         builder: (context, snapshot) {
           if (!snapshot.hasData)
@@ -173,7 +170,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: circularize(FileImage(_image)),
                       ),
               ),
-              FlatButton(
+              TextButton(
                   onPressed: () {
                     changeProfilePhoto(context);
                   },

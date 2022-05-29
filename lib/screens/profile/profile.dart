@@ -5,25 +5,16 @@ import 'package:OnceWing/screens/modes/go_to_live_game.dart';
 import 'package:OnceWing/screens/profile/edit_profile_page.dart';
 import 'package:OnceWing/screens/profile/experience.dart';
 import 'package:OnceWing/screens/profile/match_history.dart';
-import 'package:OnceWing/screens/profile/stat_column.dart';
-import 'package:OnceWing/screens/profile/stories.dart';
-import 'package:OnceWing/screens/profile/story_repo.dart';
 import 'package:OnceWing/services/database.dart';
-import 'package:OnceWing/services/game_database.dart';
 import 'package:OnceWing/services/mediacache.dart';
 import 'package:OnceWing/services/messaging.dart';
 import 'package:OnceWing/services/storage.dart';
 import 'package:OnceWing/shared/alert.dart';
-import 'package:OnceWing/shared/exp_loader.dart';
-import 'package:OnceWing/shared/json_editor.dart';
-import 'package:OnceWing/shared/loading.dart';
 import 'package:OnceWing/shared/video_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/rendering.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({this.userData});
@@ -63,25 +54,6 @@ class _ProfilePageState extends State<ProfilePage>
       CacheManagerr()
           .getFileInfo(value)
           .then((value) => profilePic = FileImage(value.file));
-    });
-
-    // sets stories first img url
-    CloudStorageService(uid: userData.uid)
-        .getStoryJsonUrl()
-        .then((value) => Repository.getOnceWingStories(value))
-        .then((value) {
-      if (value.length != 0) {
-        setState(() {
-          firstImgUrl = value[0].media;
-        });
-        setState(() {
-          firstStoryPic = makeThumbnail(value[0].media);
-        });
-      } else {
-        setState(() {
-          firstStoryPic = AssetImage('assets/logo.png');
-        });
-      }
     });
 
     CloudStorageService(uid: userData.uid).getHighlightUrl().then((value) {
@@ -141,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage>
             Color borderColor,
             Function function}) {
           return Container(
-            child: FlatButton(
+            child: TextButton(
                 onPressed: function,
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 0),
@@ -556,7 +528,7 @@ class _ProfilePageState extends State<ProfilePage>
       this.isFollowing = true;
       followButtonClicked = true;
     });
-    Firestore.instance.collection('profiles').document(userData.uid).updateData(
+    FirebaseFirestore.instance.collection('profiles').doc(userData.uid).update(
         {'followers': addToFollowerMap(userData.followers, currentUser.uid)});
 
     Messaging().sendAndRetrieveMessage(userData.fcmToken);
@@ -656,9 +628,9 @@ class _ProfilePageState extends State<ProfilePage>
     }
 
     return StreamBuilder(
-        stream: Firestore.instance
+        stream: FirebaseFirestore.instance
             .collection('profiles')
-            .document(userData.uid)
+            .doc(userData.uid)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData)
@@ -719,9 +691,10 @@ class ImageTile extends StatelessWidget {
       popupAction(value) {
         if (value == "Upload") {
           CloudStorageService(uid: currentUid).uploadThreePic(1).then((_) {
-            SnackBar snackbar =
-                SnackBar(content: Text('Uploaded Successfully'));
-            _globalKey.currentState.showSnackBar(snackbar);
+            // SnackBar snackbar =
+            //     SnackBar(content: Text('Uploaded Successfully'));
+            // _globalKey.currentState.showSnackBar(snackbar);
+            print('Image uploaded successfully');
           });
         } else if (value == "Delete") {
           showAlertDialog(

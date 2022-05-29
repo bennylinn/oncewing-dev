@@ -84,7 +84,7 @@ InkWell getStructuredGridCellStat(index, UserData profile, User currentUser) {
                   Center(
                       child: FAProgressBar(
                     progressColor: colour,
-                    currentValue: votePercent,
+                    currentValue: votePercent.toDouble(),
                     displayText: '%',
                   )),
                   Spacer(),
@@ -94,28 +94,28 @@ InkWell getStructuredGridCellStat(index, UserData profile, User currentUser) {
     onTap: () {
       if (index == 0) {
         raters[currentUser.uid] = "fire";
-        Firestore.instance
+        FirebaseFirestore.instance
             .collection('profiles')
-            .document(profile.uid)
-            .updateData({'raters': raters});
+            .doc(profile.uid)
+            .update({'raters': raters});
       } else if (index == 1) {
         raters[currentUser.uid] = "wind";
-        Firestore.instance
+        FirebaseFirestore.instance
             .collection('profiles')
-            .document(profile.uid)
-            .updateData({'raters': raters});
+            .doc(profile.uid)
+            .update({'raters': raters});
       } else if (index == 2) {
         raters[currentUser.uid] = "earth";
-        Firestore.instance
+        FirebaseFirestore.instance
             .collection('profiles')
-            .document(profile.uid)
-            .updateData({'raters': raters});
+            .doc(profile.uid)
+            .update({'raters': raters});
       } else if (index == 3) {
         raters[currentUser.uid] = "water";
-        Firestore.instance
+        FirebaseFirestore.instance
             .collection('profiles')
-            .document(profile.uid)
-            .updateData({'raters': raters});
+            .doc(profile.uid)
+            .update({'raters': raters});
       }
     },
   );

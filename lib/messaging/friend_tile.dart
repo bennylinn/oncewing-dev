@@ -66,7 +66,7 @@ class _ProfileTile extends State<FriendTile> {
                       widget.profile.rank.toString(),
                       style: TextStyle(color: Colors.blue[100]),
                     ),
-                    trailing: FlatButton.icon(
+                    trailing: TextButton.icon(
                         onPressed: () {},
                         icon: Icon(
                           Icons.message,
