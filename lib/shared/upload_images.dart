@@ -14,7 +14,7 @@ class UploadImages extends StatefulWidget {
 }
 
 class _UploadImagesState extends State<UploadImages> {
-  List<Asset> images = List<Asset>();
+  List<Asset> images = [];
   List<String> imageUrls = <String>[];
   bool isUploading = false;
 
@@ -105,9 +105,8 @@ class _UploadImagesState extends State<UploadImages> {
                               );
                             });
                       } else {
-                        SnackBar snackbar = SnackBar(
-                            content: Text('Please wait, we are uploading'));
-                        widget.globalKey.currentState.showSnackBar(snackbar);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Please wait, we are uploading")));
                         uploadImages();
                       }
                     },
@@ -143,10 +142,10 @@ class _UploadImagesState extends State<UploadImages> {
         imageUrls.add(downloadUrl.toString());
         if (imageUrls.length == images.length) {
           String documnetID = DateTime.now().millisecondsSinceEpoch.toString();
-          Firestore.instance
+          FirebaseFirestore.instance
               .collection('world_feed')
-              .document(documnetID)
-              .setData({
+              .doc(documnetID)
+              .set({
             "username": widget.currentUserModel.name,
             "location": 'location',
             "likes": {},
@@ -156,9 +155,8 @@ class _UploadImagesState extends State<UploadImages> {
             "image?": true,
             "timestamp": DateTime.now(),
           }).then((_) {
-            SnackBar snackbar =
-                SnackBar(content: Text('Uploaded Successfully'));
-            widget.globalKey.currentState.showSnackBar(snackbar);
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text("Uploaded Successfully")));
             setState(() {
               images = [];
               imageUrls = [];
@@ -172,7 +170,7 @@ class _UploadImagesState extends State<UploadImages> {
   }
 
   Future<void> loadAssets() async {
-    List<Asset> resultList = List<Asset>();
+    List<Asset> resultList = [];
     String error = 'No Error Dectected';
     try {
       resultList = await MultiImagePicker.pickImages(
@@ -204,10 +202,10 @@ class _UploadImagesState extends State<UploadImages> {
 
   Future<dynamic> postImage(Asset imageFile) async {
     String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-    StorageReference reference = FirebaseStorage.instance.ref().child(fileName);
-    StorageUploadTask uploadTask =
+    Reference reference = FirebaseStorage.instance.ref().child(fileName);
+    UploadTask uploadTask =
         reference.putData((await imageFile.getByteData()).buffer.asUint8List());
-    StorageTaskSnapshot storageTaskSnapshot = await uploadTask.onComplete;
+    TaskSnapshot storageTaskSnapshot = await uploadTask;
     print(storageTaskSnapshot.ref.getDownloadURL());
     return storageTaskSnapshot.ref.getDownloadURL();
   }

@@ -17,7 +17,7 @@ class StatColumn extends StatelessWidget {
         stream: DatabaseService(uid: uid).userData,
         builder: (context, snapshot) {
           UserData profile = snapshot.data;
-          User _currentUser = Provider.of<User>(context);
+          InternalUser _currentUser = Provider.of<InternalUser>(context);
           showPercentLevel(exp) {
             if (exp < 200) {
               return exp / 2;

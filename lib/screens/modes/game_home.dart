@@ -746,43 +746,43 @@ class _GameHome extends State<GameHome> {
                                   var prfs =
                                       Provider.of<List<Profile>>(context) ?? [];
 
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        User user = Provider.of<User>(context);
-                                        return AlertDialog(
-                                          title: Text("Scan Player"),
-                                          content: Container(
-                                              child: QR(
-                                            uid: user.uid,
-                                            callback: setQrUid,
-                                          )),
-                                          actions: [
-                                            TextButton(
-                                              child: Text("Confirm"),
-                                              onPressed: () {
-                                                Profile p;
-                                                prfs.forEach((profile) {
-                                                  if (_qrUIDtoAdd ==
-                                                      profile.uid) {
-                                                    p = profile;
-                                                    setState(() {
-                                                      profiles.add(p);
-                                                    });
-                                                  }
-                                                });
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                            TextButton(
-                                              child: Text("Cancel"),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      });
+                                  // showDialog(
+                                  //     context: context,
+                                  //     builder: (BuildContext context) {
+                                  //       InternalUser user = Provider.of<InternalUser>(context);
+                                  //       return AlertDialog(
+                                  //         title: Text("Scan Player"),
+                                  //         content: Container(
+                                  //             child: QR(
+                                  //           uid: user.uid,
+                                  //           callback: setQrUid,
+                                  //         )),
+                                  //         actions: [
+                                  //           TextButton(
+                                  //             child: Text("Confirm"),
+                                  //             onPressed: () {
+                                  //               Profile p;
+                                  //               prfs.forEach((profile) {
+                                  //                 if (_qrUIDtoAdd ==
+                                  //                     profile.uid) {
+                                  //                   p = profile;
+                                  //                   setState(() {
+                                  //                     profiles.add(p);
+                                  //                   });
+                                  //                 }
+                                  //               });
+                                  //               Navigator.pop(context);
+                                  //             },
+                                  //           ),
+                                  //           TextButton(
+                                  //             child: Text("Cancel"),
+                                  //             onPressed: () {
+                                  //               Navigator.pop(context);
+                                  //             },
+                                  //           ),
+                                  //         ],
+                                  //       );
+                                  //     });
                                 },
                               ),
                               TextButton(

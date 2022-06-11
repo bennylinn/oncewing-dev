@@ -238,7 +238,7 @@ class _EventsState extends State<Events> {
     }
 
     print(regList);
-    var user = Provider.of<User>(context);
+    var user = Provider.of<InternalUser>(context);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Column(

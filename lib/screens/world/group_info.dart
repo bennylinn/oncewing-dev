@@ -124,7 +124,7 @@ class _GroupInfoState extends State<GroupInfo> {
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<User>(context);
+    InternalUser user = Provider.of<InternalUser>(context);
     return Container(
       color: Color(0xFF737373),
       child: Scaffold(

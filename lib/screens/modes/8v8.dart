@@ -156,7 +156,7 @@ class _PlayerListState extends State<Eights> {
 
   int _currentCourtValue = 0;
 
-  bool inHere(int currentCourtValue, List inGameUids, User user) {
+  bool inHere(int currentCourtValue, List inGameUids, InternalUser user) {
     return inGameUids[currentCourtValue].contains(user.uid);
   }
 
@@ -327,7 +327,7 @@ class _PlayerListState extends State<Eights> {
       });
     }
 
-    final user = Provider.of<User>(context);
+    final user = Provider.of<InternalUser>(context);
 
     List<List<Profile>> inGame;
 

@@ -32,7 +32,6 @@ class _ProfilePageState extends State<ProfilePage>
   var firstStoryPic;
   String _highlightUrl;
   FileInfo fileInfo;
-  VidPlayer vp;
   FileImage profilePic;
 
   makeThumbnail(url) {
@@ -54,23 +53,6 @@ class _ProfilePageState extends State<ProfilePage>
       CacheManagerr()
           .getFileInfo(value)
           .then((value) => profilePic = FileImage(value.file));
-    });
-
-    CloudStorageService(uid: userData.uid).getHighlightUrl().then((value) {
-      setState(() {
-        _highlightUrl = value;
-      });
-      if (value != null) {
-        CacheManagerr().getFileInfo(value).then((value) {
-          setState(() {
-            fileInfo = value;
-          });
-          vp = VidPlayer(
-            fileInfo: value,
-            fromFile: true,
-          );
-        });
-      }
     });
   }
 
@@ -131,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage>
         }
 
         Container buildProfileFollowButton(UserData user) {
-          final user = Provider.of<User>(context);
+          final user = Provider.of<InternalUser>(context);
           currentUserId = user.uid;
           // viewing your own profile - should show edit button
           if (userData.followers.containsKey(currentUserId)) {
@@ -522,7 +504,7 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   followUser() {
-    var currentUser = Provider.of<User>(context);
+    var currentUser = Provider.of<InternalUser>(context);
     print('following user');
     setState(() {
       this.isFollowing = true;
@@ -530,8 +512,6 @@ class _ProfilePageState extends State<ProfilePage>
     });
     FirebaseFirestore.instance.collection('profiles').doc(userData.uid).update(
         {'followers': addToFollowerMap(userData.followers, currentUser.uid)});
-
-    Messaging().sendAndRetrieveMessage(userData.fcmToken);
   }
 
   unfollowUser() {

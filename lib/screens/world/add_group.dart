@@ -23,7 +23,7 @@ class _AddGroupState extends State<AddGroup> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+    final user = Provider.of<InternalUser>(context);
 
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: user.uid).userData,

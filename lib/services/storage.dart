@@ -17,17 +17,18 @@ class CloudStorageService {
     var imageFileName =
         title + DateTime.now().millisecondsSinceEpoch.toString();
 
-    final StorageReference firebaseStorageRef =
+    final Reference firebaseStorageRef =
         FirebaseStorage.instance.ref().child(uid).child(imageFileName);
 
-    StorageUploadTask uploadTask = firebaseStorageRef.putFile(imageToUpload);
+    UploadTask uploadTask = firebaseStorageRef.putFile(imageToUpload);
 
-    StorageTaskSnapshot storageSnapshot = await uploadTask.onComplete;
+    TaskSnapshot storageSnapshot = await uploadTask;
 
     var downloadUrl = await storageSnapshot.ref.getDownloadURL();
+    var url;
+    uploadTask.whenComplete(() => {url = downloadUrl.toString()});
 
-    if (uploadTask.isComplete) {
-      var url = downloadUrl.toString();
+    if (url) {
       return CloudStorageResult(
         imageUrl: url,
         imageFileName: imageFileName,
@@ -40,20 +41,21 @@ class CloudStorageService {
   Future<CloudStorageResult> uploadProfileImage({
     @required File imageToUpload,
   }) async {
-    final StorageReference firebaseStorageRef = FirebaseStorage.instance
+    final Reference firebaseStorageRef = FirebaseStorage.instance
         .ref()
         .child(uid)
         .child('Profile')
         .child('Profile');
 
-    StorageUploadTask uploadTask = firebaseStorageRef.putFile(imageToUpload);
+    UploadTask uploadTask = firebaseStorageRef.putFile(imageToUpload);
 
-    StorageTaskSnapshot storageSnapshot = await uploadTask.onComplete;
+    TaskSnapshot storageSnapshot = await uploadTask;
 
     var downloadUrl = await storageSnapshot.ref.getDownloadURL();
+    var url;
 
-    if (uploadTask.isComplete) {
-      var url = downloadUrl.toString();
+    uploadTask.whenComplete(() => {url = downloadUrl.toString()});
+    if (url) {
       return CloudStorageResult(
         imageUrl: url,
         imageFileName: 'Profile',
@@ -68,23 +70,24 @@ class CloudStorageService {
   }) async {
     var imageFileName = DateTime.now().millisecondsSinceEpoch.toString();
 
-    final StorageReference firebaseStorageRef = FirebaseStorage.instance
+    final Reference firebaseStorageRef = FirebaseStorage.instance
         .ref()
         .child(uid)
         .child('Story')
         .child(imageFileName);
 
-    StorageUploadTask uploadTask = firebaseStorageRef.putFile(imageToUpload);
+    UploadTask uploadTask = firebaseStorageRef.putFile(imageToUpload);
 
-    StorageTaskSnapshot storageSnapshot = await uploadTask.onComplete;
+    TaskSnapshot storageSnapshot = await uploadTask;
 
     var downloadUrl = await storageSnapshot.ref.getDownloadURL();
+    var url;
 
-    if (uploadTask.isComplete) {
-      var url = downloadUrl.toString();
+    uploadTask.whenComplete(() => {url = downloadUrl.toString()});
+    if (url) {
       return CloudStorageResult(
         imageUrl: url,
-        imageFileName: imageFileName,
+        imageFileName: 'Profile',
       );
     }
 
@@ -96,20 +99,21 @@ class CloudStorageService {
   }) async {
     var imageFileName = "StoryFile";
 
-    final StorageReference firebaseStorageRef =
+    final Reference firebaseStorageRef =
         FirebaseStorage.instance.ref().child(uid).child(imageFileName);
 
-    StorageUploadTask uploadTask = firebaseStorageRef.putFile(imageToUpload);
+    UploadTask uploadTask = firebaseStorageRef.putFile(imageToUpload);
 
-    StorageTaskSnapshot storageSnapshot = await uploadTask.onComplete;
+    TaskSnapshot storageSnapshot = await uploadTask;
 
     var downloadUrl = await storageSnapshot.ref.getDownloadURL();
+    var url;
 
-    if (uploadTask.isComplete) {
-      var url = downloadUrl.toString();
+    uploadTask.whenComplete(() => {url = downloadUrl.toString()});
+    if (url) {
       return CloudStorageResult(
         imageUrl: url,
-        imageFileName: imageFileName,
+        imageFileName: 'Profile',
       );
     }
 
@@ -117,7 +121,7 @@ class CloudStorageService {
   }
 
   Future deleteImage(String imageFileName) async {
-    final StorageReference firebaseStorageRef =
+    final Reference firebaseStorageRef =
         FirebaseStorage.instance.ref().child(uid).child(imageFileName);
 
     try {
@@ -129,7 +133,7 @@ class CloudStorageService {
   }
 
   Future deleteStoryJson() async {
-    final StorageReference firebaseStorageRef =
+    final Reference firebaseStorageRef =
         FirebaseStorage.instance.ref().child(uid).child('myFile.json');
 
     try {
@@ -142,7 +146,7 @@ class CloudStorageService {
 
   Future<dynamic> getFirebaseProfileUrl() async {
     try {
-      final StorageReference storageRef = FirebaseStorage.instance
+      final Reference storageRef = FirebaseStorage.instance
           .ref()
           .child(uid)
           .child('Profile')
@@ -155,7 +159,7 @@ class CloudStorageService {
 
   Future<dynamic> getStoryJsonUrl() async {
     try {
-      final StorageReference storageRef =
+      final Reference storageRef =
           FirebaseStorage.instance.ref().child(uid).child('StoryFile');
       var result = await storageRef.getDownloadURL();
       return result;
@@ -166,19 +170,20 @@ class CloudStorageService {
 
   Future uploadHighlightVid() async {
     try {
-      final file = await picker.getVideo(source: ImageSource.gallery);
+      final file = await picker.pickImage(source: ImageSource.gallery);
       final filee = File(file.path);
 
-      StorageReference ref =
+      Reference ref =
           FirebaseStorage.instance.ref().child(uid).child('Highlight.mp4');
-      StorageUploadTask uploadTask =
-          ref.putFile(filee, StorageMetadata(contentType: 'video/mp4'));
+      UploadTask uploadTask = ref.putFile(filee);
 
-      StorageTaskSnapshot storageSnapshot = await uploadTask.onComplete;
+      TaskSnapshot storageSnapshot = await uploadTask;
 
       var downloadUrl = await storageSnapshot.ref.getDownloadURL();
+      var url;
 
-      if (uploadTask.isComplete) {
+      uploadTask.whenComplete(() => {url = downloadUrl.toString()});
+      if (url) {
         var url = downloadUrl.toString();
         return CloudStorageResult(
           imageUrl: url,
@@ -192,7 +197,7 @@ class CloudStorageService {
 
   Future<dynamic> getHighlightUrl() async {
     try {
-      final StorageReference storageRef =
+      final Reference storageRef =
           FirebaseStorage.instance.ref().child(uid).child('Highlight.mp4');
       var result = await storageRef.getDownloadURL();
 
@@ -204,7 +209,7 @@ class CloudStorageService {
   }
 
   Future deleteHighlight(String imageFileName) async {
-    final StorageReference firebaseStorageRef =
+    final Reference firebaseStorageRef =
         FirebaseStorage.instance.ref().child(uid).child(imageFileName);
 
     try {
@@ -217,7 +222,7 @@ class CloudStorageService {
 
   Future<dynamic> getThreePicsUrl(int number) async {
     try {
-      final StorageReference storageRef = FirebaseStorage.instance
+      final Reference storageRef = FirebaseStorage.instance
           .ref()
           .child(uid)
           .child('ThreePics')
@@ -236,19 +241,20 @@ class CloudStorageService {
       final file = await picker.getImage(source: ImageSource.gallery);
       final filee = File(file.path);
 
-      StorageReference ref = FirebaseStorage.instance
+      Reference ref = FirebaseStorage.instance
           .ref()
           .child(uid)
           .child('ThreePics')
           .child('pic$number.jpg');
-      StorageUploadTask uploadTask =
-          ref.putFile(filee, StorageMetadata(contentType: 'image/jpg'));
+      UploadTask uploadTask = ref.putFile(filee);
 
-      StorageTaskSnapshot storageSnapshot = await uploadTask.onComplete;
+      TaskSnapshot storageSnapshot = await uploadTask;
 
       var downloadUrl = await storageSnapshot.ref.getDownloadURL();
+      var url;
 
-      if (uploadTask.isComplete) {
+      uploadTask.whenComplete(() => {url = downloadUrl.toString()});
+      if (url) {
         var url = downloadUrl.toString();
         return CloudStorageResult(
           imageUrl: url,

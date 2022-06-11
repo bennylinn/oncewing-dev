@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class InternalUser {
   final String uid;
 
-  User({this.uid});
+  InternalUser({this.uid});
 }
 
 class UserData {

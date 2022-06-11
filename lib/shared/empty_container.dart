@@ -56,9 +56,8 @@ class _EmptyContainerState extends State<EmptyContainer> {
                 {},
               )
                   .then((_) {
-                SnackBar snackbar =
-                    SnackBar(content: Text('Uploaded Successfully'));
-                _globalKey.currentState.showSnackBar(snackbar);
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Uploaded Successfully")));
               });
             },
             active: _toggle,

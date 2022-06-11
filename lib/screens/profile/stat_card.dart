@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:provider/provider.dart';
 
-InkWell getStructuredGridCellStat(index, UserData profile, User currentUser) {
+InkWell getStructuredGridCellStat(
+    index, UserData profile, InternalUser currentUser) {
   Color colour = Color(0xff050E14);
   String text = "";
   Map raters = profile.raters;

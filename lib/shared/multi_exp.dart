@@ -9,7 +9,7 @@ class MultiExample extends StatefulWidget {
 }
 
 class _MyAppState extends State<MultiExample> {
-  List<Asset> images = List<Asset>();
+  List<Asset> images = [];
   String _error = 'No Error Dectected';
 
   @override
@@ -32,7 +32,7 @@ class _MyAppState extends State<MultiExample> {
   }
 
   Future<void> loadAssets() async {
-    List<Asset> resultList = List<Asset>();
+    List<Asset> resultList = [];
     String error = 'No Error Dectected';
 
     try {
@@ -74,7 +74,7 @@ class _MyAppState extends State<MultiExample> {
         body: Column(
           children: <Widget>[
             Center(child: Text('Error: $_error')),
-            RaisedButton(
+            ElevatedButton(
               child: Text("Pick images"),
               onPressed: loadAssets,
             ),

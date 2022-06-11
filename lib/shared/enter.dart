@@ -43,18 +43,17 @@ class _SplashScreenState extends State<SplashScreen> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 50),
-                child: FadeAnimatedTextKit(
-                  duration: Duration(milliseconds: 10000),
-                  isRepeatingAnimation: false,
-                  totalRepeatCount: 1,
-                  text: ["JOURNEY BEGINS"],
-                  alignment: AlignmentDirectional.centerStart,
-                  textAlign: TextAlign.center,
-                  textStyle: GoogleFonts.courgette(
-                    color: Colors.white,
-                    fontSize: 40,
-                  ),
-                ),
+                // child: FadeAnimatedTextKit(
+                //   duration: Duration(milliseconds: 10000),
+                //   isRepeatingAnimation: false,
+                //   totalRepeatCount: 1,
+                //   text: ["JOURNEY BEGINS"],
+                //   textAlign: TextAlign.center,
+                //   textStyle: GoogleFonts.courgette(
+                //     color: Colors.white,
+                //     fontSize: 40,
+                //   ),
+                // ),
               ),
               // RaisedButton(
               //   elevation: 10,

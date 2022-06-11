@@ -10,7 +10,7 @@ class GroupDatabaseService {
 
   // collection reference
   final CollectionReference groupCollection =
-      Firestore.instance.collection('Groups');
+      FirebaseFirestore.instance.collection('Groups');
 
   Future registerGroup(String groupName, String type, String bio,
       List<dynamic> uids, List<dynamic> managers, Map registration) async {
@@ -34,7 +34,7 @@ class GroupDatabaseService {
     List<dynamic> managers,
     Map registration,
   ) async {
-    return await groupCollection.document(groupId).setData({
+    return await groupCollection.doc(groupId).set({
       'groupName': groupName,
       'groupid': groupId,
       'type': type,
@@ -48,16 +48,17 @@ class GroupDatabaseService {
 
   // Group list from snapshot
   List<GroupData> _groupListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
+    return snapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       return GroupData(
-        groupName: doc.data['groupName'] ?? '',
-        groupId: doc.data['groupid'] ?? '',
-        type: doc.data['type'] ?? '',
-        bio: doc.data['bio'] ?? '',
-        gameids: doc.data['gameids'] ?? [],
-        uids: doc.data['uids'] ?? [],
-        managers: doc.data['managers'] ?? [],
-        registration: doc.data['registration'] ?? {},
+        groupName: data['groupName'] ?? '',
+        groupId: data['groupid'] ?? '',
+        type: data['type'] ?? '',
+        bio: data['bio'] ?? '',
+        gameids: data['gameids'] ?? [],
+        uids: data['uids'] ?? [],
+        managers: data['managers'] ?? [],
+        registration: data['registration'] ?? {},
       );
     }).toList();
   }
@@ -75,7 +76,7 @@ class GroupDatabaseService {
   // get user doc stream
   Stream<GroupData> get groupData {
     return groupCollection
-        .document(groupid)
+        .doc(groupid)
         .snapshots()
         .map(_groupDataFromSnapshot);
   }

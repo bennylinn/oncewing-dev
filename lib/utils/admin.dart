@@ -21,7 +21,7 @@ class _AdminState extends State<Admin> {
         color: Colors.white,
         height: 600,
         width: MediaQuery.of(context).size.width,
-        child: FlatButton(
+        child: TextButton(
           child: Text('update group'),
           onPressed: () {
             var groupName = 'Sunday Night Drive';

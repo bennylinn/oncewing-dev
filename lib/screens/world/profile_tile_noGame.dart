@@ -32,7 +32,7 @@ class _ProfileTile extends State<ProfileTileNoGame> {
             setState(() {
               clicked = true;
             });
-            Messaging().groupInviteMsg(widget.profile.fcmToken);
+            // Messaging().groupInviteMsg(widget.profile.fcmToken);
           },
           child: AnimatedContainer(
             width: 80,
@@ -60,7 +60,7 @@ class _ProfileTile extends State<ProfileTileNoGame> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+    final user = Provider.of<InternalUser>(context);
 
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: user.uid).userData,

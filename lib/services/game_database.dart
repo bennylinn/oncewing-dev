@@ -10,7 +10,7 @@ class GameDatabaseService {
 
   // collection reference
   final CollectionReference gameCollection =
-      Firestore.instance.collection('games');
+      FirebaseFirestore.instance.collection('games');
 
   Future registerGame(List<String> uids, String type, Map games, String groupId,
       int numOfRound, int numOfCourts) async {
@@ -37,7 +37,7 @@ class GameDatabaseService {
       Map upcomingGames,
       Map finishedGames,
       Map inGame) async {
-    return await gameCollection.document(gameid).setData({
+    return await gameCollection.doc(gameid).set({
       'gameid': gameid,
       'uids': uids,
       'type': type,
@@ -55,38 +55,40 @@ class GameDatabaseService {
 
   // prof list from snapshot
   List<GameData> _gameListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
+    return snapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       return GameData(
-          gameid: doc.data['gameid'] ?? '',
-          uids: doc.data['uids'] ?? ['s'],
-          type: doc.data['type'] ?? 'Friendly',
-          groupId: doc.data['groupId'] ?? '',
-          round: doc.data['round'] ?? 0,
-          scores: doc.data['scores'] ?? {},
-          date: (doc.data['date'] as Timestamp).toDate() ?? DateTime.now(),
-          live: doc.data['live'] ?? false,
-          numOfCourts: doc.data['numOfCourts'] ?? [],
-          upcomingGames: doc.data['upcomingGames'] ?? [],
-          finishedGames: doc.data['finishedGames'] ?? [],
-          inGame: doc.data['inGame'] ?? []);
+          gameid: data['gameid'] ?? '',
+          uids: data['uids'] ?? ['s'],
+          type: data['type'] ?? 'Friendly',
+          groupId: data['groupId'] ?? '',
+          round: data['round'] ?? 0,
+          scores: data['scores'] ?? {},
+          date: (data['date'] as Timestamp).toDate() ?? DateTime.now(),
+          live: data['live'] ?? false,
+          numOfCourts: data['numOfCourts'] ?? [],
+          upcomingGames: data['upcomingGames'] ?? [],
+          finishedGames: data['finishedGames'] ?? [],
+          inGame: data['inGame'] ?? []);
     }).toList();
   }
 
   // userData from snapshot
   GameData _gameDataFromSnapshot(DocumentSnapshot snapshot) {
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     return GameData(
         gameid: gameid,
-        uids: snapshot.data['uids'],
-        type: snapshot.data['type'],
-        groupId: snapshot.data['groupId'],
-        round: snapshot.data['round'],
-        scores: snapshot.data['scores'],
-        date: (snapshot.data['date'] as Timestamp).toDate(),
-        live: snapshot.data['live'],
-        numOfCourts: snapshot.data['numOfCourts'],
-        upcomingGames: snapshot.data['upcomingGames'] ?? [],
-        finishedGames: snapshot.data['finishedGames'] ?? [],
-        inGame: snapshot.data['inGame'] ?? []);
+        uids: data['uids'],
+        type: data['type'],
+        groupId: data['groupId'],
+        round: data['round'],
+        scores: data['scores'],
+        date: (data['date'] as Timestamp).toDate(),
+        live: data['live'],
+        numOfCourts: data['numOfCourts'],
+        upcomingGames: data['upcomingGames'] ?? [],
+        finishedGames: data['finishedGames'] ?? [],
+        inGame: data['inGame'] ?? []);
   }
 
   // Get profile stream
@@ -96,9 +98,6 @@ class GameDatabaseService {
 
   // get user doc stream
   Stream<GameData> get gameData {
-    return gameCollection
-        .document(gameid)
-        .snapshots()
-        .map(_gameDataFromSnapshot);
+    return gameCollection.doc(gameid).snapshots().map(_gameDataFromSnapshot);
   }
 }

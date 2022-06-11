@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:OnceWing/models/profile.dart';
 import 'package:OnceWing/models/user.dart';
 import 'package:OnceWing/services/database.dart';
@@ -7,20 +9,20 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // create user ojb based on FirebaseUser
-  User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+  InternalUser _userFromFirebaseUser(User user) {
+    return user != null ? InternalUser(uid: user.uid) : null;
   }
 
   // auth change user stream
   Stream<User> get user {
-    return _auth.onAuthStateChanged.map(_userFromFirebaseUser);
+    return _auth.authStateChanges();
   }
 
   // sign in anon
   Future signInAnon() async {
     try {
-      AuthResult result = await _auth.signInAnonymously();
-      FirebaseUser user = result.user;
+      UserCredential result = await _auth.signInAnonymously();
+      User user = result.user;
       await DatabaseService(uid: user.uid).updateUserData(
           user.uid,
           'None',
@@ -54,9 +56,9 @@ class AuthService {
   // sign in with email & password
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      AuthResult result = await _auth.signInWithEmailAndPassword(
+      UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      FirebaseUser user = result.user;
+      User user = result.user;
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
@@ -67,9 +69,9 @@ class AuthService {
   // register with email & password
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
-      AuthResult result = await _auth.createUserWithEmailAndPassword(
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      FirebaseUser user = result.user;
+      User user = result.user;
 
       // create a new document for the user with the uid
       await DatabaseService(uid: user.uid).updateUserData(

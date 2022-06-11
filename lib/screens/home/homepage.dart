@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage>
           isScrollControlled: true);
     }
 
-    final user = Provider.of<User>(context);
+    final user = Provider.of<InternalUser>(context);
 
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: user.uid).userData,

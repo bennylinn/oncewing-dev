@@ -10,7 +10,7 @@ class DatabaseService {
 
   // collection reference
   final CollectionReference profCollection =
-      Firestore.instance.collection('profiles');
+      FirebaseFirestore.instance.collection('profiles');
 
   Future updateUserData(
     String uid,
@@ -36,7 +36,7 @@ class DatabaseService {
     Map followers,
     Map following,
   ) async {
-    return await profCollection.document(uid).setData({
+    return await profCollection.doc(uid).set({
       'uid': uid,
       'clan': clan,
       'name': name,
@@ -64,59 +64,61 @@ class DatabaseService {
 
   // prof list from snapshot
   List<Profile> _profileListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
+    return snapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       return Profile(
-        uid: doc.data['uid'] ?? '',
-        name: doc.data['name'] ?? '',
-        clan: doc.data['clan'] ?? '',
-        rank: doc.data['rank'] ?? -1,
-        eights: doc.data['eights'] ?? [0, 0, 0, 0, 0, 0, 0],
-        gamesPlayed: doc.data['gamesPlayed'] ?? -1.0,
-        status: doc.data['status'] ?? '',
-        wins: doc.data['wins'] ?? 0,
-        photoUrl: doc.data['photoUrl'] ?? '',
-        exp: doc.data['exp'] ?? 0,
-        fcmToken: doc.data['fcmToken'] ?? '',
-        fireRating: doc.data['fireRating'] ?? 0,
-        waterRating: doc.data['waterRating'] ?? 0,
-        windRating: doc.data['windRating'] ?? 0,
-        earthRating: doc.data['earthRating'] ?? 0,
-        raters: doc.data['raters'] ?? {},
-        feathers: doc.data['feathers'] ?? 0,
-        collection: doc.data['collections'] ?? [],
-        bio: doc.data['bio'] ?? '',
-        email: doc.data['email'] ?? '',
-        followers: doc.data['followers'] ?? {},
-        following: doc.data['following'] ?? {},
+        uid: data['uid'] ?? '',
+        name: data['name'] ?? '',
+        clan: data['clan'] ?? '',
+        rank: data['rank'] ?? -1,
+        eights: data['eights'] ?? [0, 0, 0, 0, 0, 0, 0],
+        gamesPlayed: data['gamesPlayed'] ?? -1.0,
+        status: data['status'] ?? '',
+        wins: data['wins'] ?? 0,
+        photoUrl: data['photoUrl'] ?? '',
+        exp: data['exp'] ?? 0,
+        fcmToken: data['fcmToken'] ?? '',
+        fireRating: data['fireRating'] ?? 0,
+        waterRating: data['waterRating'] ?? 0,
+        windRating: data['windRating'] ?? 0,
+        earthRating: data['earthRating'] ?? 0,
+        raters: data['raters'] ?? {},
+        feathers: data['feathers'] ?? 0,
+        collection: data['collections'] ?? [],
+        bio: data['bio'] ?? '',
+        email: data['email'] ?? '',
+        followers: data['followers'] ?? {},
+        following: data['following'] ?? {},
       );
     }).toList();
   }
 
   // userData from snapshot
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     return UserData(
       uid: uid ?? '',
-      name: snapshot.data['name'] ?? '',
-      clan: snapshot.data['clan'] ?? '',
-      rank: snapshot.data['rank'] ?? 0.0,
-      eights: snapshot.data['eights'] ?? [],
-      gamesPlayed: snapshot.data['gamesPlayed'] ?? 0,
-      status: snapshot.data['status'] ?? '',
-      wins: snapshot.data['wins'] ?? 0,
-      photoUrl: snapshot.data['photoUrl'] ?? '',
-      exp: snapshot.data['exp'] ?? 0,
-      fcmToken: snapshot.data['fcmToken'] ?? '',
-      fireRating: snapshot.data['fireRating'] ?? 0,
-      waterRating: snapshot.data['waterRating'] ?? 0,
-      windRating: snapshot.data['windRating'] ?? 0,
-      earthRating: snapshot.data['earthRating'] ?? 0,
-      raters: snapshot.data['raters'] ?? {},
-      feathers: snapshot.data['feathers'] ?? 0,
-      collection: snapshot.data['collections'] ?? [],
-      bio: snapshot.data['bio'] ?? '',
-      email: snapshot.data['email'] ?? '',
-      followers: snapshot.data['followers'] ?? {},
-      following: snapshot.data['following'] ?? {},
+      name: data['name'] ?? '',
+      clan: data['clan'] ?? '',
+      rank: data['rank'] ?? 0.0,
+      eights: data['eights'] ?? [],
+      gamesPlayed: data['gamesPlayed'] ?? 0,
+      status: data['status'] ?? '',
+      wins: data['wins'] ?? 0,
+      photoUrl: data['photoUrl'] ?? '',
+      exp: data['exp'] ?? 0,
+      fcmToken: data['fcmToken'] ?? '',
+      fireRating: data['fireRating'] ?? 0,
+      waterRating: data['waterRating'] ?? 0,
+      windRating: data['windRating'] ?? 0,
+      earthRating: data['earthRating'] ?? 0,
+      raters: data['raters'] ?? {},
+      feathers: data['feathers'] ?? 0,
+      collection: data['collections'] ?? [],
+      bio: data['bio'] ?? '',
+      email: data['email'] ?? '',
+      followers: data['followers'] ?? {},
+      following: data['following'] ?? {},
     );
   }
 
@@ -131,8 +133,7 @@ class DatabaseService {
 
     void _checkFirebase() async {
       try {
-        ud =
-            profCollection.document(uid).snapshots().map(_userDataFromSnapshot);
+        ud = profCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
       } catch (e) {
         _auth.signOut();
         ud = null;
