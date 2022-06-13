@@ -2,6 +2,7 @@ import 'package:OnceWing/models/user.dart';
 import 'package:OnceWing/screens/authenticate/authenticate.dart';
 import 'package:OnceWing/screens/home/homepage.dart';
 import 'package:OnceWing/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
