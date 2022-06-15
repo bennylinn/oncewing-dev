@@ -68,10 +68,10 @@ class _HomePageState extends State<HomePage>
         pageChanged(index);
       },
       children: <Widget>[
-        EmptyContainer(),
-        Home(),
+        // EmptyContainer(),
         ProfileWrapper(uid: user.uid),
         ModeWrapper(),
+        Home(),
         Shop(),
       ],
     );
