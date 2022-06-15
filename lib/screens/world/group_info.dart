@@ -6,6 +6,7 @@ import 'package:OnceWing/screens/world/profile_list_noGame.dart';
 import 'package:OnceWing/screens/world/register_game.dart';
 import 'package:OnceWing/services/database.dart';
 import 'package:OnceWing/services/group_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -124,7 +125,7 @@ class _GroupInfoState extends State<GroupInfo> {
 
   @override
   Widget build(BuildContext context) {
-    InternalUser user = Provider.of<InternalUser>(context);
+    User user = Provider.of<User>(context);
     return Container(
       color: Color(0xFF737373),
       child: Scaffold(

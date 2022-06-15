@@ -11,7 +11,7 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthService _auth = AuthService();
 
-    final user = Provider.of<InternalUser>(context);
+    final user = Provider.of<User>(context);
 
     // FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 

@@ -11,6 +11,7 @@ import 'package:OnceWing/services/database.dart';
 import 'package:OnceWing/services/game_database.dart';
 import 'package:OnceWing/services/group_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -238,7 +239,7 @@ class _EventsState extends State<Events> {
     }
 
     print(regList);
-    var user = Provider.of<InternalUser>(context);
+    var user = Provider.of<User>(context);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Column(

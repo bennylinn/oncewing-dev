@@ -12,6 +12,7 @@ import 'package:OnceWing/services/storage.dart';
 import 'package:OnceWing/shared/alert.dart';
 import 'package:OnceWing/shared/video_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:provider/provider.dart';
@@ -113,7 +114,7 @@ class _ProfilePageState extends State<ProfilePage>
         }
 
         Container buildProfileFollowButton(UserData user) {
-          final user = Provider.of<InternalUser>(context);
+          final user = Provider.of<User>(context);
           currentUserId = user.uid;
           // viewing your own profile - should show edit button
           if (userData.followers.containsKey(currentUserId)) {
@@ -504,7 +505,7 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   followUser() {
-    var currentUser = Provider.of<InternalUser>(context);
+    var currentUser = Provider.of<User>(context);
     print('following user');
     setState(() {
       this.isFollowing = true;

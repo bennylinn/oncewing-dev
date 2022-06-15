@@ -2,6 +2,7 @@ import 'package:OnceWing/models/profile.dart';
 import 'package:OnceWing/models/user.dart';
 import 'package:OnceWing/screens/profile/stat_card.dart';
 import 'package:OnceWing/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
@@ -17,7 +18,7 @@ class StatColumn extends StatelessWidget {
         stream: DatabaseService(uid: uid).userData,
         builder: (context, snapshot) {
           UserData profile = snapshot.data;
-          InternalUser _currentUser = Provider.of<InternalUser>(context);
+          User _currentUser = Provider.of<User>(context);
           showPercentLevel(exp) {
             if (exp < 200) {
               return exp / 2;
