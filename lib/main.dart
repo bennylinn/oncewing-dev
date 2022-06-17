@@ -1,5 +1,5 @@
 import 'package:OnceWing/models/user.dart';
-import 'package:OnceWing/screens/profile/storry_errorview.dart';
+import 'package:OnceWing/screens/profile/errorview.dart';
 import 'package:OnceWing/screens/wrapper.dart';
 import 'package:OnceWing/services/auth.dart';
 import 'package:OnceWing/shared/loading.dart';

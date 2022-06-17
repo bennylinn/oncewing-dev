@@ -5,6 +5,7 @@ import 'package:OnceWing/screens/profile/profile_wrapper.dart';
 import 'package:OnceWing/services/database.dart';
 import 'package:OnceWing/services/messaging.dart';
 import 'package:OnceWing/shared/loading.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:OnceWing/models/profile.dart';
 import 'package:provider/provider.dart';
@@ -112,7 +113,7 @@ class _ProfileTile extends State<ProfileTile> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<InternalUser>(context);
+    final user = Provider.of<User>(context);
 
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: user.uid).userData,

@@ -2,12 +2,12 @@ import 'package:OnceWing/models/profile.dart';
 import 'package:OnceWing/models/user.dart';
 import 'package:OnceWing/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:provider/provider.dart';
 
-InkWell getStructuredGridCellStat(
-    index, UserData profile, InternalUser currentUser) {
+InkWell getStructuredGridCellStat(index, UserData profile, User currentUser) {
   Color colour = Color(0xff050E14);
   String text = "";
   Map raters = profile.raters;

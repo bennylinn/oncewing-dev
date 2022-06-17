@@ -1,6 +1,7 @@
 import 'package:OnceWing/models/user.dart';
 import 'package:OnceWing/services/database.dart';
 import 'package:OnceWing/shared/loading.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:OnceWing/models/profile.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ class PlayerBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<InternalUser>(context);
+    final user = Provider.of<User>(context);
 
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: user.uid).userData,

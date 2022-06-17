@@ -749,7 +749,7 @@ class _GameHome extends State<GameHome> {
                                   // showDialog(
                                   //     context: context,
                                   //     builder: (BuildContext context) {
-                                  //       InternalUser user = Provider.of<InternalUser>(context);
+                                  //       User user = Provider.of<User>(context);
                                   //       return AlertDialog(
                                   //         title: Text("Scan Player"),
                                   //         content: Container(

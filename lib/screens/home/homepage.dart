@@ -9,6 +9,7 @@ import 'package:OnceWing/services/auth.dart';
 import 'package:OnceWing/services/database.dart';
 import 'package:OnceWing/services/storage.dart';
 import 'package:OnceWing/shared/empty_container.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:OnceWing/shared/destination_view.dart';
@@ -55,7 +56,7 @@ class _HomePageState extends State<HomePage>
   }
 
   PageController pageController = PageController(
-    initialPage: 2,
+    initialPage: 0,
     keepPage: true,
   );
 
@@ -67,10 +68,10 @@ class _HomePageState extends State<HomePage>
         pageChanged(index);
       },
       children: <Widget>[
-        EmptyContainer(),
-        Home(),
+        // EmptyContainer(),
         ProfileWrapper(uid: user.uid),
         ModeWrapper(),
+        Home(),
         Shop(),
       ],
     );
@@ -104,7 +105,7 @@ class _HomePageState extends State<HomePage>
           isScrollControlled: true);
     }
 
-    final user = Provider.of<InternalUser>(context);
+    final user = Provider.of<User>(context);
 
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: user.uid).userData,

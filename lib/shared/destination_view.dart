@@ -10,9 +10,9 @@ class Destination {
 }
 
 const List<Destination> allDestinations = <Destination>[
-  Destination('Temple', MyFlutterApp.temple, Colors.orange),
-  Destination('World', MyFlutterApp.globe, Colors.blue),
+  // Destination('Temple', MyFlutterApp.temple, Colors.orange),
   Destination('Profile', MyFlutterApp.logo__2_, Colors.cyan),
+  Destination('World', MyFlutterApp.globe, Colors.blue),
   Destination('Play', MyFlutterApp.play, Colors.teal),
   Destination('Shop', MyFlutterApp.t_shirt, Colors.teal)
 ];
